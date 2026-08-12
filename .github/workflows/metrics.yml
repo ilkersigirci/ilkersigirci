@@ -1,8 +1,10 @@
 # Visit https://github.com/lowlighter/metrics#-documentation for full reference
 name: Metrics
 on:
-  # Schedule updates (every day)
-  schedule: [{cron: "0 0 * * *"}]
+  # Schedule updates every day at 02:37 UTC (05:37 Europe/Istanbul).
+  # Avoid the start of the hour, when scheduled GitHub Actions are busiest.
+  schedule:
+    - cron: "37 2 * * *"
   # Lines below let you run workflow manually and on each commit
   workflow_dispatch:
   push: {branches: ["main"]}
@@ -48,7 +50,8 @@ jobs:
           plugin_languages_recent_days: 14
           plugin_languages_recent_load: 300
           plugin_languages_threshold: 0%
-          plugin_lines: yes
-          plugin_lines_history_limit: 1
-          plugin_lines_repositories_limit: 4
-          plugin_lines_sections: base
+          # Disabled: upstream renderer can fail when the lines plugin returns no sections.
+          # plugin_lines: yes
+          # plugin_lines_history_limit: 1
+          # plugin_lines_repositories_limit: 4
+          # plugin_lines_sections: base
